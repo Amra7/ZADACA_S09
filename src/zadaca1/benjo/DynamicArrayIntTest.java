@@ -1,6 +1,6 @@
-package zadaca.benjo;
+package zadaca1.benjo;
 /**
- * Test class far Dynamic array
+ * Test class for Dynamic array
  * @author Amra
  *
  */
