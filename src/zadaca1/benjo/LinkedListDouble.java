@@ -1,5 +1,7 @@
 package zadaca1.benjo;
 
+
+
 /**
  * Class Linked list with inner class Node.
  * 
@@ -38,21 +40,34 @@ public class LinkedListDouble {
 	 * Adds new Node(value) in Linked list
 	 * @param value - value that we want to add.
 	 */
-	public void add(int value) {
+	public void add(double value) {
 		Node newNode = new Node(value);
 
-		if (size == 0) {
-			head = newNode;
-			size++;
-			return;
-		}
-
-		Node current = head;
-		while (current.next != null) {
-			current = current.next;
-		}
-		current.next = newNode;
+		if (head == null){
+		head = newNode;
 		size++;
+		return;
+	}
+	
+	
+	if( head.value > newNode.value){
+		newNode.next = head;
+		head = newNode;
+		size++;
+	} else if (head.value < newNode.value){
+		Node current = head.next;
+		Node prev = head;
+		while ( current != null){
+			if (current.value > newNode.value){
+				break;
+			}				
+			prev = current;
+			current = current.next;			
+		}
+		newNode.next = current;
+		prev.next = newNode;
+		size++;
+	}
 
 	}
 
@@ -61,7 +76,7 @@ public class LinkedListDouble {
 	 * @param index - index(offset) on which we put new value.
 	 * @param value - new value we forward.
 	 */
-	public void add(int index, int value){
+	public void add(int index, double value){
 		Node newNode = new Node(value);
 		
 		if( index == 0 ){
@@ -85,6 +100,18 @@ public class LinkedListDouble {
 		newNode.next = current;
 		size++;
 				
+	}
+	
+	public int getPositon(int count){
+		int counter = 0;
+		Node current = head;
+		while (counter < count){
+			current = current.next;
+			counter++;
+		}
+		
+		return counter;
+		
 	}
 	
 	/**
@@ -141,6 +168,9 @@ public class LinkedListDouble {
 		return contains;
 	}
 	
+	/**
+	 * Converts all elements to String.
+	 */
 	public String toString(){
 		String str = "";
 		str ="[ ";
@@ -158,25 +188,86 @@ public class LinkedListDouble {
 	}
 
 	// inner class Node
-	private class Node {
-		public int value;
+	public class Node {
+		public double value;		
+		public Node prev;
 		public Node next;
+		
 
-		public Node(int value) {
+		/**
+		 * Constructor for Node if the next references to null.
+		 * @param prev - previous node.
+		 * @param value - value of new Node.
+		 */
+		public Node( double value) {
+			this.prev = null;
 			this.value = value;
 			this.next = null;
 		}
+		/**
+		 * Constructor for Node if the next references to null.
+		 * @param prev - previous node.
+		 * @param value - value of new Node.
+		 */
+		public Node( Node prev, double value) {
+			this.prev = prev;
+			this.value = value;
+			this.next = null;
+		}
+		
+		/**
+		 * Constructor for Node in the middle of Linked list.
+		 * @param prev- previous node.
+		 * @param value - value of new Node.
+		 * @param next - next Node.
+		 */
+		public Node( Node prev, double value , Node next) {
+			this.prev = prev;
+			this.value = value;
+			this.next = next;
+		}
+		
+		/**
+		 * Constructor for Node at the beginning  of Linked list.
+		 * @param value - value of new Node.
+		 * @param next - next Node.
+		 */
+		public Node(  double value , Node next) {
+			this.prev = null;
+			this.value = value;
+			this.next = next;
+		}
 
-		public int getValue() {
+		/**
+		 * Getter for value.
+		 * @return value of node.
+		 */
+		public double getValue() {
 			return value;
 		}
 
+		/**
+		 * Getter for next Node.
+		 * @return next node.
+		 */
 		public Node getNext() {
 			return next;
 		}
 
+		/**
+		 * Setter for next Node.
+		 * @param other - new Node.
+		 */
 		public void setNext(Node other) {
 			this.next = other.next;
+		}
+		
+		/**
+		 * Getter for previous.
+		 * @return previus Node.
+		 */
+		public Node getPrev() {
+			return prev;
 		}
 	}
 

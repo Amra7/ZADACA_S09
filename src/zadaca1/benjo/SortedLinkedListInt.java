@@ -43,29 +43,53 @@ public class SortedLinkedListInt {
 	 */
 	public void add(int value) {
 		Node newNode = new Node(value);
-
-		if (size == 0) {
+		
+		if (head == null){
 			head = newNode;
 			size++;
 			return;
 		}
-
-		if (size >= 1) {
+		
+		
+		if( head.value > newNode.value){
+			newNode.next = head;
+			head = newNode;
+			size++;
+		} else if (head.value < newNode.value){
 			Node current = head.next;
 			Node prev = head;
-			while (current != null) {
-				if (newNode.value < current.value) {
-					prev.next = newNode;
-					newNode.next = current;
+			while ( current != null){
+				if (current.value > newNode.value){
 					break;
-				}
-				prev = prev.next;
-				current = current.next;
+				}				
+				prev = current;
+				current = current.next;			
 			}
-
-			current = newNode;
+			newNode.next = current;
+			prev.next = newNode;
 			size++;
 		}
+
+//		if (size == 0) {
+//			head = newNode;
+//			size++;
+//			return;
+//		}
+//
+//		if (size >= 1) {
+//			Node current = head.next;
+//			Node prev = head;
+//			while (current != null) {
+//				if (newNode.value <= current.value) {					
+//					break;
+//				} 
+//					prev = prev.next;
+//					current = current.next;				
+//			}
+//			prev.next = newNode;
+//			newNode.next = current;
+//			size++;		
+//		}
 
 	}
 
