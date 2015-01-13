@@ -1,4 +1,4 @@
-package zadaca1.benjo;
+package zadaca2.benjo;
 
 /**
  * Class Linked list with inner class Node.
@@ -6,16 +6,15 @@ package zadaca1.benjo;
  * @author Amra
  *
  */
-public class SortedLinkedListInt {
+public class LinkedListIntRemoveDuplicate {
 
 	private int size;
 	private Node head;
-	private int[] array;
 
 	/**
 	 * Constructor for LinkedListInt
 	 */
-	public SortedLinkedListInt() {
+	public LinkedListIntRemoveDuplicate() {
 		super();
 		this.size = 0;
 		this.head = null;
@@ -29,7 +28,7 @@ public class SortedLinkedListInt {
 	 * @param head
 	 *            - first Node of list.
 	 */
-	public SortedLinkedListInt(int size, Node head) {
+	public LinkedListIntRemoveDuplicate(int size, Node head) {
 		super();
 		this.size = size;
 		this.head = head;
@@ -43,86 +42,19 @@ public class SortedLinkedListInt {
 	 */
 	public void add(int value) {
 		Node newNode = new Node(value);
-		
-		if (head == null){
+
+		if (size == 0) {
 			head = newNode;
 			size++;
 			return;
 		}
-		
-		
-		if( head.value > newNode.value){
-			newNode.next = head;
-			head = newNode;
-			size++;
-		} else if (head.value < newNode.value){
-			Node current = head.next;
-			Node prev = head;
-			while ( current != null){
-				if (current.value > newNode.value){
-					prev.next = current.next;
-					break;
-				}				
-				prev = current;
-				current = current.next;			
-			}
-			newNode.next = current;
-			prev.next = newNode;
-			size++;
-		}
 
-//		if (size == 0) {
-//			head = newNode;
-//			size++;
-//			return;
-//		}
-//
-//		if (size >= 1) {
-//			Node current = head.next;
-//			Node prev = head;
-//			while (current != null) {
-//				if (newNode.value <= current.value) {					
-//					break;
-//				} 
-//					prev = prev.next;
-//					current = current.next;				
-//			}
-//			prev.next = newNode;
-//			newNode.next = current;
-//			size++;		
-//		}
-
-	}
-
-	public int[] toArray() {
-
-		int[] arr = new int[size];
-
-		int counter = 0;
 		Node current = head;
-		while (current != null) {
-			arr[counter] = current.value;
+		while (current.next != null) {
 			current = current.next;
-			counter++;
 		}
-
-		return arr;
-
-	}
-
-	private void selectionSort(int[] array) {
-		int j;
-		for (int i = 0; i < array.length - 1; i++) {
-			int min = 1;
-			for (j = i + 1; j < array.length; j++) {
-				if (array[j] < array[min]) {
-					min = j;
-				}
-			}
-			int temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-		}
+		current.next = newNode;
+		size++;
 
 	}
 
@@ -187,6 +119,90 @@ public class SortedLinkedListInt {
 		current = null;
 		size--;
 
+	}
+
+	/*
+	 * Zadatak 1,2. Ne radi!
+	 */
+
+	public void removeDuplicates(Node head) {
+		if (head == null)
+			return;
+
+		Node prev = head;
+
+		while (prev != null) {
+
+			Node current = prev.next;
+			int search = prev.value;
+
+			while (current != null) {
+				if (current.value == search) {
+					prev.next = current.next;
+				} else {
+					current = current.next;
+				}
+			}
+			prev = prev.next;
+		}
+
+	}
+
+	/*
+	 * Zadatak 3
+	 */
+
+	/**
+	 * Getter for value of Middle Node
+	 * 
+	 * @return value of middle node.
+	 */
+	public int getMiddleValue() {
+		Node slow = head;
+		Node fast = head;
+
+		while (fast.next.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+
+		return slow.value;
+	}
+
+	/*
+	 * Zadatak 4
+	 */
+	
+	/**
+	 * Getter for value of n node.
+	 * @param n - number of position of node from back.
+	 * @return value of node on n position from back.
+	 */
+	public int getNtoLastValue(int n){
+		Node current = head;
+		Node nNode = head;
+		int count = 0;
+		
+		while( count < n ){
+			nNode = nNode.next;
+			count++;
+		}
+		
+		while( nNode != null ){
+			nNode = nNode.next;
+			current = current.next;
+		}
+		
+		return current.value;
+	}
+
+	/**
+	 * Getter for head Node.
+	 * 
+	 * @return head Node.
+	 */
+	public Node getHead() {
+		return head;
 	}
 
 	/**
