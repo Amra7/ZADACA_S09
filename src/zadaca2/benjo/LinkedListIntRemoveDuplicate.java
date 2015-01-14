@@ -125,26 +125,64 @@ public class LinkedListIntRemoveDuplicate {
 	 * Zadatak 1,2. Ne radi!
 	 */
 
-	public void removeDuplicates(Node head) {
+	public void removeDuplicates() {
 		if (head == null)
 			return;
 
-		Node prev = head;
+//		int search;
+//		for (Node prev = head; prev.next != null; prev = prev.next) {
+//			Node current = prev.next;
+//			search = prev.value;
+//
+//			if (search == current.value) {
+//				prev.next = current.next;
+//				current = null;
+//				
+//			} else {
+//				
+//				for (current = prev.next.next && ; current.next != null; current = current.next) {
+//	                 
+//				}
+//			}
+//			
+//
+//		}
+		
+		/*************************************************/
 
-		while (prev != null) {
+		 Node iterator = head;
+		
+		 while(iterator.next != null){
+		 Node prev = iterator;
+		 Node current = prev.next;
+		 int search = iterator.value;
+		
+		 while (prev != null){
+		 if(prev.next.value == search){
+		 prev.next = current.next;
+		 current.next =null;
+		 }
+		 prev = prev.next;
+		 current = current.next;
+		 }
+		
+		 iterator = iterator.next;
+		 }
 
-			Node current = prev.next;
-			int search = prev.value;
-
-			while (current != null) {
-				if (current.value == search) {
-					prev.next = current.next;
-				} else {
-					current = current.next;
-				}
-			}
-			prev = prev.next;
-		}
+		// while (prev.next != null) {
+		//
+		// Node current = prev.next;
+		// int search = prev.value;
+		//
+		// while (current != null) {
+		// if (current.value == search) {
+		// prev.next = current.next;
+		// } else {
+		// current = current.next;
+		// }
+		// }
+		// prev = prev.next;
+		// }
 
 	}
 
@@ -158,6 +196,9 @@ public class LinkedListIntRemoveDuplicate {
 	 * @return value of middle node.
 	 */
 	public int getMiddleValue() {
+		if (head == null)
+			throw new NullPointerException("List is empty");
+
 		Node slow = head;
 		Node fast = head;
 
@@ -172,27 +213,29 @@ public class LinkedListIntRemoveDuplicate {
 	/*
 	 * Zadatak 4
 	 */
-	
+
 	/**
 	 * Getter for value of n node.
-	 * @param n - number of position of node from back.
+	 * 
+	 * @param n
+	 *            - number of position of node from back.
 	 * @return value of node on n position from back.
 	 */
-	public int getNtoLastValue(int n){
+	public int getNtoLastValue(int n) {
 		Node current = head;
 		Node nNode = head;
 		int count = 0;
-		
-		while( count < n ){
+
+		while (count < n) {
 			nNode = nNode.next;
 			count++;
 		}
-		
-		while( nNode != null ){
+
+		while (nNode != null) {
 			nNode = nNode.next;
 			current = current.next;
 		}
-		
+
 		return current.value;
 	}
 

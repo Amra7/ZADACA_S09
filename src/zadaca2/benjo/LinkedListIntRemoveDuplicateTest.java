@@ -22,7 +22,7 @@ public class LinkedListIntRemoveDuplicateTest {
 		
 
 		System.out.println("Added several of elements \n" + lli.toString());
-//		lli.removeDuplicates(lli.getHead());
+     	lli.removeDuplicates();
 		System.out.println("Removed duplicates \n" + lli.toString());
 		
 		System.out.println("Middle value: " + lli.getMiddleValue());
